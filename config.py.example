@@ -1,0 +1,8 @@
+DB_LOGIN = "postgres"
+DB_PASSWORD = ''
+DB_HOST = 'localhost'
+DB_PORT = 5432
+DB_DATABASE = ''
+SENTRY = ''
+TELEGRAM_TOKEN = ''
+PRODUCTION = True

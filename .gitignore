@@ -1,0 +1,18 @@
+.idea/
+data.json
+config.py
+migrations
+.DS_Store
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Editor directories and files
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+package-lock.json
+static/build.js
+static/build.js.map
