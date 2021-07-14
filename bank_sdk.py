@@ -1,7 +1,7 @@
 import requests
 
 host = 'http://127.0.0.1:4567'
-trading_token = '477c4c92-6da9-473d-802b-f62e7d0dd604'
+trading_token = '07e61d42-b66d-4af1-aa7f-8790c3997de4'
 
 def send_money(to_id, amount, description):
     answer = requests.post(host + '/api/send', json={
@@ -34,7 +34,7 @@ def verify_transaction(transaction_id, code):
 if __name__ == '__main__':
     # print(ask_money(86773763, 50, 'тестовая покупка'))
     # print(verify_transaction(3, 9797))
-    pass
+    print(send_money(1, 30, 'тест'))
 
 
 

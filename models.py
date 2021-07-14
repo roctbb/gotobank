@@ -41,4 +41,4 @@ class Account(db.Model):
 
     def balance(self):
         transactions = list(map(lambda x:x.amount, self.done_incoming_transactions())) + list(map(lambda x: -1 * x.amount, self.done_outcoming_transactions()))
-        return reduce(lambda s, t: s + t, transactions, 0)
+        return round(reduce(lambda s, t: s + t, transactions, 0), 2)

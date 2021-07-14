@@ -13,7 +13,7 @@ def gts():
 
 def validate(data, rules):
     for rule in rules:
-        if not data.get(rule[0]) or not isinstance(data.get(rule[0]), data[1]):
+        if not data.get(rule[0]) or not isinstance(data.get(rule[0]), rule[1]):
             return False, rule[2]
     return True, ""
 

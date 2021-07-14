@@ -21,25 +21,45 @@ def create_account(chat_id, name, surname):
         db.session.add(new_account)
         db.session.commit()
 
+
 def send_help(chat_id):
-    bot.send_message(chat_id, "* /number - узнать номер счета\n* /balance - узнать баланс;\n* /history - история операций;\n* /token - торговый токен;\n* /reset_token - сбросить торговый токен;")
+    bot.send_message(chat_id,
+                     "* /number - узнать номер счета\n* /balance - узнать баланс;\n* /history - история операций;\n* /token - торговый токен;\n* /reset_token - сбросить торговый токен;")
 
 
 def send_history(account):
     with app.app_context():
         message = "Исходящие транзакции:\n"
 
-        for transaction in account.done_outcoming_transactions():
-            message += '* -{} gt на счет {} ({}, {})\n'.format(transaction.amount, transaction.to_id, transaction.description, transaction.created_on.strftime('%H:%M %d.%m.%Y'))
-        else:
+        outtransactions = account.done_outcoming_transactions()
+        for transaction in outtransactions:
+            if not transaction.receiver_account:
+                receiver = "акселератора"
+            else:
+                receiver = transaction.receiver_account.telegram_id
+
+            message += '* -{} gt на счет {} ({}, {})\n'.format(transaction.amount, receiver,
+                                                               transaction.description,
+                                                               transaction.created_on.strftime('%H:%M %d.%m.%Y'))
+
+        if not outtransactions:
             message += '* еще нет...\n'
 
         message += "\nВходящие транзакции:\n"
 
-        for transaction in account.done_incoming_transactions():
-            message += '* -{} gt на счет {} ({}, {})\n'.format(transaction.amount, transaction.to_id, transaction.description, transaction.created_on.strftime('%H:%M %d.%m.%Y'))
-        else:
+        intransactions = account.done_incoming_transactions()
+        for transaction in intransactions:
+            if not transaction.sender_account:
+                sender = "акселератора"
+            else:
+                sender = transaction.sender_account.telegram_id
+
+            message += '* +{} gt со счета {} ({}, {})\n'.format(transaction.amount, sender,
+                                                                transaction.description,
+                                                                transaction.created_on.strftime('%H:%M %d.%m.%Y'))
+        if not intransactions:
             message += '* еще нет...\n'
+
         bot.send_message(account.telegram_id, message)
 
 
@@ -47,13 +67,16 @@ def send_balance(account):
     with app.app_context():
         bot.send_message(account.telegram_id, "Баланс вашего счета: {} gt".format(account.balance()))
 
+
 def send_number(account):
     with app.app_context():
         bot.send_message(account.telegram_id, "Номер вашего счета: {}".format(account.telegram_id))
 
+
 def send_token(account):
     with app.app_context():
         bot.send_message(account.telegram_id, "Ваш торговый токен: {}".format(account.trading_token))
+
 
 def reset_token(account):
     with app.app_context():
@@ -61,6 +84,7 @@ def reset_token(account):
         db.session.add(account)
         db.session.commit()
         bot.send_message(account.telegram_id, "Ваш новый торговый токен: {}".format(account.trading_token))
+
 
 @bot.message_handler(content_types=['text'])
 def start(message):

@@ -113,7 +113,7 @@ def send_money():
             'error': 'Wrong account_id'
         }), 404
 
-    if receiver_account.balance() < data.get('amount') * 1.03:
+    if sender_account.balance() < data.get('amount') * 1.03:
         return jsonify({
             'state': 'error',
             'error': 'Insufficient funds'
