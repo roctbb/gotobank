@@ -6,3 +6,5 @@ apscheduler
 psycopg2-binary
 requests
 sentry-sdk[flask]
+pytelegrambotapi
+flask_httpauth

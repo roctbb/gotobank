@@ -11,6 +11,13 @@ def gts():
     now = datetime.now()
     return now.strftime("%Y-%m-%d %H:%M:%S - ")
 
+def validate(data, rules):
+    for rule in rules:
+        if not data.get(rule[0]) or not isinstance(data.get(rule[0]), data[1]):
+            return False, rule[2]
+    return True, ""
+
+
 
 def log(error, terminating=False):
     exc_type, exc_obj, exc_tb = sys.exc_info()

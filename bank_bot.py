@@ -102,7 +102,7 @@ def save_name(message):
         return
 
     temp[chat_id] = {
-        "name": name
+        "name": name.lower().capitalize()
     }
 
     msg = bot.send_message(chat_id,
@@ -123,7 +123,7 @@ def save_surname(message):
         bot.register_next_step_handler(msg, save_surname)
         return
 
-    temp[chat_id]['surname'] = surname
+    temp[chat_id]['surname'] = surname.lower().capitalize()
     create_account(chat_id, temp[chat_id]['name'], temp[chat_id]['surname'])
     bot.send_message(chat_id, "Все прошло успешно, номер вашего счета - {}".format(chat_id))
     send_help(chat_id)
