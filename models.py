@@ -30,6 +30,12 @@ class Account(db.Model):
     incoming_transactions = db.relationship('Transaction', foreign_keys='Transaction.to_id', backref=backref('to_account', uselist=False), lazy=True)
     outcoming_transactions = db.relationship('Transaction', foreign_keys='Transaction.from_id', backref=backref('from_account', uselist=False), lazy=True)
 
+    def done_incoming_transactions(self):
+        return Transaction.query.filter_by(to_id=self.id, status="done").all()
+
+    def done_outcoming_transactions(self):
+        return Transaction.query.filter_by(from_id=self.id, status="done").all()
+
     def balance(self):
-        transactions = map(lambda x:x.amount, self.incoming_transactions) +  map(lambda x: -1 * x.amount, self.outcoming_transactions)
+        transactions = list(map(lambda x:x.amount, self.done_outcoming_transactions())) + list(map(lambda x: -1 * x.amount, self.done_outcoming_transactions()))
         return reduce(lambda s, t: s + t, transactions, 0)
