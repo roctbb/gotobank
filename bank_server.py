@@ -39,7 +39,7 @@ def index():
 
 @app.route('/admin', methods=['POST', 'GET'])
 @auth.login_required
-def admin():
+def admin_panel():
     done_list = []
     undone_list = []
 
