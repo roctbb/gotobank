@@ -87,7 +87,7 @@ def send_money():
         ['token', str, 'No trading token'],
         ['description', str, 'No description'],
         ['account_id', int, 'No account id or it is not number'],
-        ['amount', [int, float], 'No amount or it is not number or lower than 1'],
+        ['amount', (int, float), 'No amount or it is not number or lower than 1'],
     ]
 
     correct, error = validate(data, rules)
@@ -153,7 +153,7 @@ def ask_money():
         ['token', str, 'No trading token'],
         ['description', str, 'No description'],
         ['account_id', int, 'No account id or it is not number'],
-        ['amount', [int, float], 'No amount or it is not number or lower than 1'],
+        ['amount', (int, float), 'No amount or it is not number or lower than 1'],
     ]
 
     correct, error = validate(data, rules)
