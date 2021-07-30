@@ -5,6 +5,7 @@ from helpers import *
 from models import *
 from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import generate_password_hash, check_password_hash
+import markdown2
 
 auth = HTTPBasicAuth()
 app = create_app()
