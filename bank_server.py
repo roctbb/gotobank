@@ -43,9 +43,12 @@ def admin_panel():
     done_list = []
     undone_list = []
 
+    task = ""
+    description = ""
     if request.method == 'POST':
         description = request.form.get('description')
-        data = request.form.get('list').split('\n')
+        task = request.form.get('list')
+        data = task.split('\n')
         data = list(map(lambda x: x.split('	'), data))
         is_run = request.form.get('action') == 'Начислить'
 
@@ -75,7 +78,7 @@ def admin_panel():
 
         db.session.commit()
 
-    return render_template('admin.html', done_list=done_list, undone_list=undone_list)
+    return render_template('admin.html', done_list=done_list, undone_list=undone_list, task=task, description=description)
 
 
 @app.route('/debug-sentry')

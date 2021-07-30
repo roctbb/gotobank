@@ -13,11 +13,11 @@
     <form class="form" method="POST">
         <div class="form-group">
             <label>Описание</label>
-            <input class="form-control" name="description"/>
+            <input class="form-control" value="{{ description }}" name="description"/>
         </div>
         <div class="form-group">
             <label>Список участников</label>
-            <textarea class="form-control" name="list"></textarea>
+            <textarea class="form-control" name="list">{{ task }}</textarea>
         </div>
 
         <input type="submit" name="action" value="Начислить" class="btn btn-success" />
