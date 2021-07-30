@@ -34,7 +34,8 @@ def verify_transaction(transaction_id, code):
 if __name__ == '__main__':
     # print(ask_money(86773763, 50, 'тестовая покупка'))
     # print(verify_transaction(3, 9797))
-    print(send_money(1, 30, 'тест'))
+    # print(send_money(1, 30, 'тест'))
+    pass
 
 
 

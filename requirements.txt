@@ -8,3 +8,4 @@ requests
 sentry-sdk[flask]
 pytelegrambotapi
 flask_httpauth
+markdown2
