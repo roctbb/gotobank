@@ -17,25 +17,24 @@ def pay(app):
                                   filter(lambda x: x.created_on > datetime.now().date(), transactions), 0)
 
             cashback = min(today_amount, DAILY_PRICE) * CASHBACK
-            transaction = Transaction(from_id=account.id,
-                                      to_id=None,
-                                      description="Оплата участия в кластере",
-                                      amount=DAILY_PRICE,
-                                      status='done',
-                                      code=None,
-                                      type='daily')
+            fact_price = min(0, DAILY_PRICE - today_amount)
+
+            if fact_price:
+                transaction = Transaction(from_id=account.id,
+                                          description="Оплата участия в кластере",
+                                          amount=DAILY_PRICE,
+                                          status='done',
+                                          type='daily')
             db.session.add(transaction)
 
             bot.send_message(account.telegram_id,
                              "Списание {} gt за участие в акселераторе".format(transaction.amount))
 
             if cashback:
-                transaction = Transaction(from_id=None,
-                                          to_id=account.id,
+                transaction = Transaction(to_id=account.id,
                                           description="cashback",
                                           amount=cashback,
                                           status='done',
-                                          code=None,
                                           type='cashback')
                 db.session.add(transaction)
 
@@ -45,5 +44,5 @@ def pay(app):
 
 
 scheduler = BlockingScheduler()
-scheduler.add_job(pay, 'cron', hour=22, minute=53, second=0, args=(app,))
+scheduler.add_job(pay, 'cron', hour=23, minute=50, second=0, args=(app,))
 scheduler.start()

@@ -30,9 +30,15 @@ def verify_password(username, password):
         return username
 
 
-@app.route('/', methods=['POST', 'GET'])
-@auth.login_required
+@app.route('/', methods=['GET'])
 def index():
+    with open('docs.md', 'r') as docs:
+        html = markdown2.markdown(docs.read(), extras=["fenced-code-blocks", "break-on-newline", "tables"])
+    return render_template('index.html', docs=html)
+
+@app.route('/admin', methods=['POST', 'GET'])
+@auth.login_required
+def admin():
     done_list = []
     undone_list = []
 
@@ -40,6 +46,7 @@ def index():
         description = request.form.get('description')
         data = request.form.get('list').split('\n')
         data = list(map(lambda x: x.split('	'), data))
+        is_run = request.form.get('action') == 'Начислить'
 
         try:
             for line in data:
@@ -50,16 +57,16 @@ def index():
 
                 if receiver_account:
                     done_list.append(line)
-                    transaction = Transaction(from_id=None,
-                                              to_id=receiver_account.id,
-                                              description=description,
-                                              amount=amount,
-                                              status='done',
-                                              code=None,
-                                              type='grant')
-                    db.session.add(transaction)
-                    bot.send_message(receiver_account.telegram_id,
-                                     "Зачисление {} gt: {}".format(transaction.amount, transaction.description))
+
+                    if is_run:
+                        transaction = Transaction(to_id=receiver_account.id,
+                                                  description=description,
+                                                  amount=amount,
+                                                  status='done',
+                                                  type='grant')
+                        db.session.add(transaction)
+                        bot.send_message(receiver_account.telegram_id,
+                                         "Зачисление {} gt: {}".format(transaction.amount, transaction.description))
                 else:
                     undone_list.append(line)
         except Exception as e:
@@ -67,7 +74,7 @@ def index():
 
         db.session.commit()
 
-    return render_template('index.html', done_list=done_list, undone_list=undone_list)
+    return render_template('admin.html', done_list=done_list, undone_list=undone_list)
 
 
 @app.route('/debug-sentry')
