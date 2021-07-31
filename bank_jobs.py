@@ -25,7 +25,7 @@ def pay(app):
                                           amount=DAILY_PRICE,
                                           status='done',
                                           type='daily')
-            db.session.add(transaction)
+                db.session.add(transaction)
 
             bot.send_message(account.telegram_id,
                              "Списание {} gt за участие в акселераторе".format(transaction.amount))
