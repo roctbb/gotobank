@@ -27,8 +27,7 @@ def pay(app):
                                           type='daily')
                 db.session.add(transaction)
 
-            bot.send_message(account.telegram_id,
-                             "Списание {} gt за участие в акселераторе".format(transaction.amount))
+                bot.send_message(account.telegram_id, "Списание {} gt за участие в акселераторе".format(transaction.amount))
 
             if cashback:
                 transaction = Transaction(to_id=account.id,
