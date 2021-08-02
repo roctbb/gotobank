@@ -14,7 +14,7 @@ def pay(app):
         for account in Account.query.all():
             transactions = Transaction.query.filter_by(from_id=account.id, type='trade', status='done').all()
             today_amount = reduce(lambda a, b: a + b.amount,
-                                  filter(lambda x: x.created_on > datetime.now().date(), transactions), 0)
+                                  filter(lambda x: x.created_on.date() == datetime.now().date(), transactions), 0)
 
             cashback = min(today_amount, DAILY_PRICE) * CASHBACK
             fact_price = min(0, DAILY_PRICE - today_amount)
