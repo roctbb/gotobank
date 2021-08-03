@@ -43,5 +43,5 @@ def pay(app):
 
 
 scheduler = BlockingScheduler()
-scheduler.add_job(pay, 'cron', hour=23, minute=50, second=0, args=(app,))
+scheduler.add_job(pay, 'cron', hour=20, minute=58, second=0, args=(app,))
 scheduler.start()
