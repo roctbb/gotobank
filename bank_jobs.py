@@ -17,7 +17,7 @@ def pay(app):
                                   filter(lambda x: x.created_on.date() == datetime.now().date(), transactions), 0)
 
             cashback = min(today_amount, DAILY_PRICE) * CASHBACK
-            fact_price = min(0, DAILY_PRICE - today_amount)
+            fact_price = max(0, DAILY_PRICE - today_amount)
 
             if fact_price:
                 transaction = Transaction(from_id=account.id,
