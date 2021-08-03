@@ -42,6 +42,7 @@ def pay(app):
         db.session.commit()
 
 
-scheduler = BlockingScheduler()
-scheduler.add_job(pay, 'cron', hour=20, minute=59, second=0, args=(app,))
-scheduler.start()
+if __name__ == "__main__":
+    scheduler = BlockingScheduler()
+    scheduler.add_job(pay, 'cron', hour=20, minute=59, second=0, args=(app,))
+    scheduler.start()
