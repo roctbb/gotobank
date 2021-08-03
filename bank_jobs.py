@@ -44,5 +44,5 @@ def pay(app):
 
 if __name__ == "__main__":
     scheduler = BlockingScheduler()
-    scheduler.add_job(pay, 'cron', hour=20, minute=59, second=0, args=(app,))
+    scheduler.add_job(pay, 'cron', hour=20, minute=55, second=0, args=(app,))
     scheduler.start()
