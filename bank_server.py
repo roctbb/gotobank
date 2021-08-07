@@ -94,6 +94,12 @@ def trigger_error():
 def send_money():
     data = request.json
 
+    if not data:
+        return jsonify({
+            'state': 'error',
+            'error': 'No data'
+        }), 422
+
     rules = [
         ['token', str, 'No trading token'],
         ['description', str, 'No description'],
@@ -160,6 +166,12 @@ def send_money():
 def ask_money():
     data = request.json
 
+    if not data:
+        return jsonify({
+            'state': 'error',
+            'error': 'No data'
+        }), 422
+
     rules = [
         ['token', str, 'No trading token'],
         ['description', str, 'No description'],
@@ -224,6 +236,12 @@ def ask_money():
 @app.route('/api/verify', methods=['POST'])
 def verify_transaction():
     data = request.json
+
+    if not data:
+        return jsonify({
+            'state': 'error',
+            'error': 'No data'
+        }), 422
 
     if not data.get('transaction_id') or not isinstance(data.get('transaction_id'), int):
         return jsonify({
