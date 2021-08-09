@@ -83,7 +83,8 @@ def ask_money(from_id, amount, description):
 
     return answer.json()
 
-ask_money(НОМЕР СЧЕТА ПОКУПАТЕЛЯ, СУММА, "ОПИСАНИЕ ПОКУПКИ")
+answer = ask_money(НОМЕР СЧЕТА ПОКУПАТЕЛЯ, СУММА, "ОПИСАНИЕ ПОКУПКИ")
+transaction_id = answer['transaction_id']
 ```
 
 После этого пользователь в своем личном кабинете получит код совершения операции, который должен сообщить Вам. Этот код необходимо переслать банку вторым запросом.
@@ -102,7 +103,7 @@ def verify_transaction(transaction_id, code):
 
     return answer.json()
 
-verify_transaction(НОМЕР СЧЕТА ПОКУПАТЕЛЯ, КОД ПОДТВЕРЖДЕНИЯ)
+verify_transaction(ID ТРАНЗАКЦИИ, КОД ПОДТВЕРЖДЕНИЯ)
 ```
 
 **Как отправить средства другому пользвоателю?**
