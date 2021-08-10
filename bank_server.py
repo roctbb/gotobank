@@ -311,7 +311,7 @@ def verify_transaction():
     transaction.status = 'done'
     bot.send_message(transaction.sender_account.telegram_id,
                      "Списание {} gt: {}".format(transaction.amount, transaction.description))
-    bot.send_message(transaction.sender_account.telegram_id,
+    bot.send_message(transaction.receiver_account.telegram_id,
                      "Зачисление {} gt со счета {}: {}".format(transaction.amount,
                                                                transaction.sender_account.telegram_id,
                                                                transaction.description))
