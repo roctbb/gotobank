@@ -146,9 +146,14 @@ def send_money():
     db.session.add(transaction)
     db.session.commit()
 
+    bot.send_message(transaction.receiver_account.telegram_id,
+                     "Зачисление {} gt со счета {}: {}".format(transaction.amount,
+                                                               transaction.sender_account.telegram_id,
+                                                               transaction.description))
+
     commission = Transaction(from_id=sender_account.id,
                              to_id=None,
-                             description="Коммиссия за транзакцию ID {}".format(transaction.id),
+                             description="Комиссия за транзакцию ID {}".format(transaction.id),
                              amount=data.get('amount') * 0.03,
                              status='done',
                              code=None,
