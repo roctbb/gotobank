@@ -32,6 +32,10 @@ def send_history(account):
         message = "Исходящие транзакции:\n"
 
         outtransactions = account.done_outcoming_transactions()
+
+        if len(outtransactions) > 20:
+            outtransactions = outtransactions[-20:]
+
         for transaction in outtransactions:
             if not transaction.receiver_account:
                 receiver = "акселератора"
@@ -48,6 +52,9 @@ def send_history(account):
         message += "\nВходящие транзакции:\n"
 
         intransactions = account.done_incoming_transactions()
+        if len(intransactions) > 20:
+            intransactions = intransactions[-20:]
+
         for transaction in intransactions:
             if not transaction.sender_account:
                 sender = "акселератора"
