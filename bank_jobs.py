@@ -22,7 +22,7 @@ def pay(app):
             if fact_price:
                 transaction = Transaction(from_id=account.id,
                                           description="Оплата участия в кластере",
-                                          amount=DAILY_PRICE,
+                                          amount=fact_price,
                                           status='done',
                                           type='daily')
                 db.session.add(transaction)
