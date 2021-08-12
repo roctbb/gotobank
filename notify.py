@@ -88,4 +88,5 @@ with app.app_context():
                 if not IS_POSVYAT and user.name != "Ростислав":
                     print("I will send to {}".format(member))
                 else:
-                    bot.send_message(user.telegram_id, text.format(team['location']))
+                    print("sent")
+                    #bot.send_message(user.telegram_id, text.format(team['location']))
