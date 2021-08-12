@@ -84,8 +84,8 @@ with app.app_context():
         members = team['members']
         for i, member in enumerate(members):
             user = Account.query.filter_by(surname=member.split()[0]).first()
-            n1 = members[i + 1 % len(members)]
-            n2 = members[i + 2 % len(members)]
+            n1 = members[(i + 1) % len(members)]
+            n2 = members[(i + 2) % len(members)]
 
             if not user:
                 print("Cant find {}".format(member))
