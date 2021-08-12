@@ -75,12 +75,17 @@ text = """Уважаемый клиент!
 
 В частности, Вы подозреваетесь в использовании грантового финансирования в азартных играх. В соответствие со статьей 285.1 УК РФ, все выданные ранее средства возвращаются грантодателю, а ваше имущество (ноутбуки) конфискуется с целью продажи для покрытия неустойки.
 
-Если Вы хотите выкупить ваше имущество, Вам необходимо в течение ближайших 5 минут сообщить об этом в ломбарде, располагающемся по адресу «{}». Не забудьте мобильный телефон для подтверждения транзакций."""
+Если Вы хотите выкупить ваше имущество, Вам необходимо в течение ближайших 5 минут сообщить об этом в ломбарде, располагающемся по адресу «{}». Не забудьте мобильный телефон для подтверждения транзакций.
+
+Также с Вами должны явиться: {}, {}."""
 
 with app.app_context():
     for team in teams:
-        for member in team['members']:
+        members = team['members']
+        for i, member in enumerate(members):
             user = Account.query.filter_by(surname=member.split()[0]).first()
+            n1 = members[i + 1 % len(members)]
+            n2 = members[i + 2 % len(members)]
 
             if not user:
                 print("Cant find {}".format(member))
@@ -89,4 +94,4 @@ with app.app_context():
                     print("I will send to {}".format(member))
                 else:
                     print("sent to {}".format(member))
-                    bot.send_message(user.telegram_id, text.format(team['location']))
+                    bot.send_message(user.telegram_id, text.format(team['location'], n1, n2))
