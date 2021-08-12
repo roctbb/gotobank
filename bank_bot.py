@@ -162,5 +162,5 @@ def save_surname(message):
     bot.send_message(chat_id, "Все прошло успешно, номер вашего счета - {}".format(chat_id))
     send_help(chat_id)
 
-
-bot.polling(none_stop=True)
+if __name__ == "__main__":
+    bot.polling(none_stop=True)
