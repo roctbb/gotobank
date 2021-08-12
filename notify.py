@@ -49,6 +49,8 @@ team4 = """Макаров Глеб
 Турубанов Никита
 Вергун Антон"""
 
+team5 = """Бородин Ростислав"""
+
 teams = [
     {
         "members": team1.split('\n'),
@@ -65,6 +67,10 @@ teams = [
     {
         "members": team4.split('\n'),
         "location": "11 учебка"
+    },
+    {
+        "members": team5.split('\n'),
+        "location": "тест"
     }
 ]
 
