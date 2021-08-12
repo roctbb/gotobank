@@ -72,7 +72,10 @@ def send_history(account):
 
 def send_balance(account):
     with app.app_context():
-        bot.send_message(account.telegram_id, "Баланс вашего счета: {} gt".format(account.balance()))
+        if IS_POSVYAT:
+            bot.send_message(account.telegram_id, "Баланс вашего счета: 0 gt")
+        else:
+            bot.send_message(account.telegram_id, "Баланс вашего счета: {} gt".format(account.balance()))
 
 
 def send_number(account):
