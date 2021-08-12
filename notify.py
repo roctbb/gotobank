@@ -80,7 +80,7 @@ text = """Уважаемый клиент!
 with app.app_context():
     for team in teams:
         for member in team['members']:
-            user = Account.query.filter_by(surname=member.split()[1]).first()
+            user = Account.query.filter_by(surname=member.split()[0]).first()
 
             if not user:
                 print("Cant find {}".format(member))
